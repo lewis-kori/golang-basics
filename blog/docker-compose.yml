@@ -1,0 +1,32 @@
+version: '3'
+services: 
+
+  postgres:
+      build: ./postgres
+      container_name: go_blog_db
+      restart: unless-stopped
+      ports:
+        - "5432:5432"
+      environment: 
+        LC_ALL: ${LC_ALL}
+        POSTGRES_USER: ${DB_USER}
+        POSTGRES_PASSWORD: ${DB_PASSWORD}
+        POSTGRES_DB: ${DB_NAME}
+      volumes:
+          - pgdata:/var/lib/postgresql/data/  
+
+  pgadmin:
+      image: dpage/pgadmin4
+      container_name: go_blog_pg_admin
+      depends_on:
+        - postgres
+      ports:
+        - "5051:80"
+      environment:
+        PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+        PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      restart: always
+
+
+volumes: 
+  pgdata:

@@ -1,0 +1,8 @@
+<h1>List Todo</h1>
+<ul>
+    {{ range .}}
+        <li>{{ .Title }} <a href="/delete/{{.Model.ID}}" style="color: red">&times;</a> </li></li>
+    {{end}}
+</ul>
+
+<a href="/add">Add New </a>
